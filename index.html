@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#19152B">
+<title>Hoá 11 – Ôn tập giữa học kì 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#19152B; --panel:#241E3D; --panel2:#2E2750; --line:#45397C;
+  --text:#F2EFFF; --muted:#B3ABD9; --gold:#FFC94A; --gold2:#FF9F1C;
+  --teal:#6EE7D2; --pink:#FF9AB0; --blue:#9CC2FF; --ok:#5EE6A0; --bad:#FF6B6B;
+  --radius-lg:22px; --radius:14px; --radius-sm:10px;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  background:radial-gradient(1100px 650px at 85% -10%,#3A2A66 0%,transparent 60%),
+             radial-gradient(900px 600px at -10% 110%,#173F4A 0%,transparent 55%),var(--bg);
+  background-attachment:fixed;color:var(--text);line-height:1.5;overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;overscroll-behavior-y:contain;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;touch-action:manipulation}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:8px}
+[hidden]{display:none!important}
+sup,sub{font-size:.7em;line-height:0}
+.screen{min-height:100vh;min-height:100dvh}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- Bắt đầu ---------- */
+.start{max-width:560px;margin:0 auto;padding:22px 20px 40px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero{width:100%;max-width:380px}
+.beam-g{transform-origin:200px 92px;animation:rock 4s ease-in-out infinite}
+@keyframes rock{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+.start h1{font-size:clamp(28px,7.4vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.12}
+.start .lead{color:var(--muted);margin:10px 0 18px;max-width:42ch}
+.form{width:100%;display:grid;grid-template-columns:1fr 120px;gap:10px;text-align:left}
+.form label,.fieldlabel{font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:6px;text-align:left}
+.form input{background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;font-size:16px;min-width:0}
+.form input:focus{border-color:var(--gold);outline:none}
+.topics{width:100%;margin-top:16px}
+.tps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:6px}
+.tp{padding:10px 12px;border-radius:var(--radius);background:var(--panel);border:1.5px solid var(--line);font-size:14px;line-height:1.3;text-align:left;display:flex;gap:10px;align-items:center}
+.tp .ck{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line);flex-shrink:0;display:grid;place-items:center;font-size:14px;font-weight:800;color:#19152B}
+.tp.on{border-color:var(--teal);background:#24394A}
+.tp.on .ck{background:var(--teal);border-color:var(--teal)}
+.tp b{display:block;font-size:12px;color:var(--muted);font-weight:600}
+.modes{width:100%;display:grid;gap:10px;margin-top:16px}
+.mode{display:flex;flex-direction:column;gap:2px;text-align:left;padding:15px 18px;border-radius:var(--radius);background:var(--panel);border:1.5px solid var(--line)}
+.mode b{font-size:18px}
+.mode span{font-size:14px;color:var(--muted)}
+.mode.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));border-color:transparent;color:#2A1A00}
+.mode.primary span{color:#5A3B00}
+.mode:active{transform:scale(.98)}
+.mode-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.err{color:var(--bad);min-height:1.5em;margin-top:10px;font-size:14px}
+
+/* ---------- Thanh trên ---------- */
+.topbar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:8px;row-gap:8px;padding:10px 14px;background:rgba(25,21,43,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.spacer{flex:1}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--panel);border:1px solid var(--line);flex-shrink:0}
+.icon-btn svg{width:20px;height:20px}
+.progress{flex:1;min-width:0}
+.progress .bar{height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:99px;transition:width .4s}
+.progress span{font-size:13px;color:var(--muted);display:block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{font-size:14px;font-weight:600;padding:6px 10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);white-space:nowrap}
+.chip.hot{border-color:var(--gold);color:var(--gold)}
+.tbtn{font-size:14px;font-weight:600;padding:8px 12px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);white-space:nowrap}
+
+/* ---------- Câu hỏi ---------- */
+.play{max-width:780px;margin:0 auto;padding:16px 14px 130px;display:grid;gap:14px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.tab{padding:8px 12px;border-radius:99px;background:var(--panel);border:1px solid var(--line);font-size:14px;font-weight:600;white-space:nowrap;color:var(--muted)}
+.tab.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-lg);padding:18px}
+.qmeta{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:13px;font-weight:600}
+.qmeta .t{color:var(--teal);display:inline-flex;align-items:center;gap:6px}
+.qmeta .t i{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.qmeta .c{color:var(--muted);font-weight:500}
+.qtext{font-size:clamp(18px,4.6vw,21px);font-weight:600;margin:6px 0 14px;line-height:1.4}
+.qtext small{display:block;font-size:14px;font-weight:400;color:var(--muted);margin-top:4px}
+.eq{font-size:clamp(17px,4.6vw,22px);font-weight:800;text-align:center;padding:14px 10px;border-radius:var(--radius);background:#1C1733;border:1px solid var(--line);margin-bottom:12px;overflow-x:auto;white-space:nowrap}
+.eq small{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-top:4px}
+.dist{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius);background:#3A2F1C;border:1.5px solid var(--gold);font-weight:800;font-size:18px;margin-bottom:12px}
+.dist span{font-size:13px;font-weight:600;color:var(--gold)}
+.beam{width:100%;max-width:340px;display:block;margin:0 auto 10px}
+.beam .arm{transform-origin:170px 60px;transition:transform 1s cubic-bezier(.3,1.4,.4,1)}
+.beam text{font-family:"Be Vietnam Pro",system-ui,sans-serif}
+
+.tok{padding:10px 13px;border-radius:12px;background:var(--panel2);border:1.5px solid var(--line);font-weight:600;font-size:16px;line-height:1.25;text-align:center}
+.tok.active{border-color:var(--gold);background:#4A3F3A;box-shadow:0 0 0 3px rgba(255,201,74,.2)}
+.tok.good{border-color:var(--ok);background:rgba(94,230,160,.13)}
+.tok.bad{border-color:var(--bad);background:rgba(255,107,107,.13)}
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:48px;padding:10px;border-radius:var(--radius);border:1.5px dashed var(--line);margin-bottom:12px}
+.pool:empty::before{content:"Đã xếp hết. Bấm Kiểm tra.";color:var(--muted);font-size:14px;align-self:center}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:10px}
+.bin{border-radius:var(--radius);border:1.5px solid var(--line);background:#1C1733;padding:10px;min-height:92px;display:flex;flex-direction:column;gap:8px;text-align:left}
+.bin h4{font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px}
+.bin h4 i{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.bin .in{display:flex;flex-wrap:wrap;gap:6px}
+.bin .tok{font-size:15px;padding:7px 10px}
+.bins.armed .bin{border-style:dashed;border-color:var(--gold);background:#2A2440}
+
+/* hàng chọn nhiều trạng thái */
+.rows{display:grid;gap:8px}
+.rw{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 12px;border-radius:var(--radius);background:var(--panel2);border:1.5px solid transparent}
+.rw .lb{font-weight:700;font-size:16px;line-height:1.35}
+.rw.tfrow .lb{font-weight:500;font-size:15.5px}
+.rw.good{border-color:var(--ok)} .rw.bad{border-color:var(--bad);background:rgba(255,107,107,.1)}
+.seg{display:flex;gap:4px;background:#1C1733;border:1px solid var(--line);border-radius:12px;padding:4px}
+.seg button{padding:8px 10px;border-radius:9px;font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap}
+.seg button.on{background:var(--panel);color:var(--text);box-shadow:inset 0 0 0 1.5px var(--gold)}
+.seg button.good{background:rgba(94,230,160,.18);color:var(--text);box-shadow:inset 0 0 0 1.5px var(--ok)}
+.seg button.bad{background:rgba(255,107,107,.18);color:var(--text);box-shadow:inset 0 0 0 1.5px var(--bad)}
+
+.opts{display:grid;gap:10px}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opt{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:center;text-align:left;padding:12px 14px;border-radius:var(--radius);background:var(--panel2);border:1.5px solid var(--line);font-weight:600;font-size:17px;line-height:1.35}
+.opts.three .opt{grid-template-columns:1fr;text-align:center;font-size:15px;padding:12px 8px}
+.opt .k{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#1C1733;border:1px solid var(--line);font-size:14px;font-weight:800;color:var(--muted)}
+.opt.sel{border-color:var(--gold);background:#4A3F3A}
+.opt.sel .k{background:var(--gold);color:#2A1A00;border-color:var(--gold)}
+.opt.good{border-color:var(--ok);background:rgba(94,230,160,.14)}
+.opt.bad{border-color:var(--bad);background:rgba(255,107,107,.14)}
+.opt:disabled{cursor:default}
+.ansbox{display:flex;gap:10px;align-items:center}
+.ansbox input{flex:1;min-width:0;font-size:22px;font-weight:800;padding:12px 14px;border-radius:var(--radius);background:#1C1733;border:2px solid var(--line);text-align:center}
+.ansbox input:focus{border-color:var(--gold);outline:none}
+.ansbox input.good{border-color:var(--ok)} .ansbox input.bad{border-color:var(--bad)}
+.ansnote{font-size:13px;color:var(--muted);margin-top:8px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px}
+.frac span:first-child{border-bottom:2px solid currentColor;padding:0 6px 2px}
+.frac span:last-child{padding:2px 6px 0}
+
+/* ---------- Thẻ ghi nhớ ---------- */
+.fc-wrap{perspective:1200px}
+.fc{position:relative;width:100%;min-height:300px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.3,.9,.3,1);cursor:pointer;text-align:center}
+.fc.flip{transform:rotateY(180deg)}
+.fc .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius-lg);padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;border:1.5px solid var(--line)}
+.fc .front{background:linear-gradient(160deg,#2E2750,#241E3D)}
+.fc .back{background:linear-gradient(160deg,#21414A,#1F2E3E);transform:rotateY(180deg);border-color:var(--teal)}
+.fc .front b{font-size:clamp(20px,5.4vw,26px);line-height:1.35}
+.fc .back div{font-size:clamp(16px,4.3vw,19px);line-height:1.5;font-weight:500}
+.fc .hint{font-size:13px;color:var(--muted)}
+.fc .tag{font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.06em}
+.fc-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.fc-btns .btn{font-size:16px}
+.btn.no{background:rgba(255,107,107,.15);border-color:var(--bad)}
+.btn.yes{background:rgba(94,230,160,.15);border-color:var(--ok)}
+.fc-done{text-align:center;padding:30px 10px}
+.fc-done h2{font-size:26px}
+.fc-done p{color:var(--muted);margin:8px 0 18px}
+
+/* ---------- Thanh hành động ---------- */
+.actions{position:fixed;left:0;right:0;bottom:0;z-index:15;padding:12px 14px calc(12px + env(safe-area-inset-bottom));background:rgba(25,21,43,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.actions .in{max-width:780px;margin:0 auto;display:flex;gap:10px}
+.btn{padding:14px 16px;border-radius:var(--radius);font-weight:600;background:var(--panel2);border:1px solid var(--line);white-space:nowrap}
+.btn.cta{flex:1;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#2A1A00;border:0;font-weight:800;font-size:17px}
+.btn.cta:disabled{background:var(--panel2);color:var(--muted);border:1px solid var(--line);font-weight:600;font-size:15px}
+.btn:active:not(:disabled){transform:scale(.98)}
+
+/* ---------- Phản hồi ---------- */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;justify-content:center;padding:0 10px calc(10px + env(safe-area-inset-bottom));pointer-events:none}
+.sheet-in{pointer-events:auto;width:100%;max-width:620px;max-height:72vh;overflow-y:auto;background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius-lg);padding:18px;box-shadow:0 -10px 40px rgba(0,0,0,.5);animation:up .28s ease-out}
+@keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.sheet.ok .sheet-in{border-color:var(--ok)} .sheet.no .sheet-in{border-color:var(--bad)}
+.sheet h3{font-size:22px;font-weight:800;display:flex;align-items:center;gap:8px}
+.sheet.ok h3{color:var(--ok)} .sheet.no h3{color:var(--bad)}
+.sheet p{color:var(--muted);margin-top:8px}
+.sheet p b{color:var(--text)}
+.calc{margin-top:10px;padding:10px 12px;border-radius:12px;background:#1C1733;font-weight:600;overflow-x:auto}
+.calc div+div{margin-top:4px}
+.sheet .btns{display:flex;gap:10px;margin-top:14px}
+.sheet .btns .btn{flex:1}
+
+/* ---------- Kết quả ---------- */
+.result{max-width:660px;margin:0 auto;padding:28px 16px 48px}
+.score{text-align:center}
+.score .big{font-size:clamp(64px,18vw,96px);font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--gold)}
+.score .big small{font-size:.35em;color:var(--muted);font-weight:600;letter-spacing:0}
+.score h2{font-size:21px;margin-top:6px}
+.score p{color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:20px 0}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 6px;text-align:center}
+.stat b{display:block;font-size:24px}
+.stat span{font-size:12px;color:var(--muted)}
+.stat.g b{color:var(--ok)} .stat.r b{color:var(--bad)}
+.send{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);font-size:14px}
+.send.ok{border-color:var(--ok)} .send.no{border-color:var(--bad)}
+.send .btn{padding:8px 12px;margin-left:auto}
+.bytype{display:grid;gap:6px;margin-top:16px}
+.bt{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;font-size:14px}
+.bt .bar{height:10px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.bt .bar i{display:block;height:100%;background:var(--teal)}
+.review{margin-top:18px;display:grid;gap:8px}
+.review h3,.bytype h3{font-size:16px;color:var(--muted);font-weight:600}
+.rv{padding:10px 14px;border-radius:var(--radius);background:var(--panel);border-left:4px solid var(--line);font-size:14px}
+.rv.right{border-left-color:var(--ok)} .rv.wrong{border-left-color:var(--bad)} .rv.skip{border-left-color:var(--muted)}
+.rv .t{font-size:12px;color:var(--muted)}
+.rv .q{font-weight:600;margin:2px 0}
+.rv .a{color:var(--muted)}
+.rv .a b{color:var(--text);font-weight:600}
+.res-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.res-btns .cta{grid-column:1/-1}
+
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.confetti i{position:absolute;top:-20px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+@media(max-width:640px){
+  .topbar{gap:6px;padding:8px 10px}
+  .progress{order:10;flex-basis:100%}
+  .chip{padding:5px 8px;font-size:13px}
+  .tbtn{padding:7px 9px;font-size:13px}
+  .icon-btn{width:36px;height:36px}
+  .card{padding:14px}
+  .rw{grid-template-columns:1fr;gap:8px}
+  .seg button{flex:1;padding:8px 6px;font-size:13.5px}
+  .opt{font-size:16px}
+  .opts.three .opt{font-size:14px;padding:11px 4px}
+  .btn{padding:13px 12px}
+  .sheet-in{padding:14px}
+  .bt{grid-template-columns:120px 1fr 40px}
+  .mode-row{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ===== BẮT ĐẦU ===== -->
+<section class="screen" id="scrStart">
+  <div class="start">
+    <div class="hero" id="hero" aria-hidden="true"></div>
+    <h1>Ôn tập Hoá 11 – Giữa học kì 1</h1>
+    <p class="lead">Cân bằng hoá học, cân bằng trong dung dịch nước, nitrogen và ammonia – luyện đúng các dạng trong đề cương.</p>
+    <div class="form">
+      <label>Họ và tên<input id="inName" maxlength="60" autocomplete="name" placeholder="Nguyễn Văn A"></label>
+      <label>Lớp<input id="inClass" maxlength="20" placeholder="11A1"></label>
+    </div>
+    <div class="topics">
+      <div class="fieldlabel">Chọn nội dung ôn (chạm để bật/tắt)</div>
+      <div class="tps" id="tps"></div>
+    </div>
+    <div class="modes">
+      <button class="mode primary" id="btnChallenge"><b>Thử thách</b><span id="challengeDesc"></span></button>
+      <div class="mode-row">
+        <button class="mode" id="btnPractice"><b>Luyện tập</b><span>Chọn dạng, làm không giới hạn, có gợi ý</span></button>
+        <button class="mode" id="btnCards"><b>Thẻ ghi nhớ</b><span>Lật thẻ học thuộc kiến thức trọng tâm</span></button>
+      </div>
+    </div>
+    <p class="err" id="startErr" role="alert"></p>
+  </div>
+</section>
+
+<!-- ===== CHƠI ===== -->
+<section class="screen" id="scrPlay" hidden>
+  <header class="topbar">
+    <button class="icon-btn" id="btnHome" aria-label="Về màn hình chính">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="progress"><div class="bar"><i id="progBar"></i></div><span id="progText"></span></div>
+    <span class="spacer"></span>
+    <span class="chip" id="streak">Chuỗi 0</span>
+    <span class="chip num" id="timer">00:00</span>
+    <button class="tbtn" id="btnFinish">Nộp bài</button>
+    <button class="icon-btn" id="btnMute" aria-label="Tắt/bật âm thanh"></button>
+  </header>
+  <main class="play">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <section class="card" id="qCard" aria-live="polite"></section>
+  </main>
+  <div class="actions" id="actions"><div class="in">
+    <button class="btn" id="btnSkip">Bỏ qua</button>
+    <button class="btn" id="btnNew">Câu khác</button>
+    <button class="btn cta" id="btnCheck" disabled>Kiểm tra</button>
+  </div></div>
+  <div class="sheet" id="sheet" hidden role="dialog"><div class="sheet-in" id="sheetIn"></div></div>
+</section>
+
+<!-- ===== KẾT QUẢ ===== -->
+<section class="screen" id="scrResult" hidden>
+  <div class="result">
+    <div class="score">
+      <div class="big num" id="rsScore">0<small>/10</small></div>
+      <h2 id="rsTitle"></h2>
+      <p id="rsWho"></p>
+    </div>
+    <div class="stats num">
+      <div class="stat g"><b id="rsRight">0</b><span>Đúng</span></div>
+      <div class="stat r"><b id="rsWrong">0</b><span>Sai</span></div>
+      <div class="stat"><b id="rsSkip">0</b><span>Chưa làm</span></div>
+      <div class="stat"><b id="rsTime">00:00</b><span>Thời gian</span></div>
+    </div>
+    <div class="send" id="rsSend"></div>
+    <div class="bytype" id="rsByType"></div>
+    <div class="review" id="rsReview"></div>
+    <div class="res-btns">
+      <button class="btn cta" id="btnAgain">Làm thử thách mới</button>
+      <button class="btn" id="btnToPractice">Luyện tập</button>
+      <button class="btn" id="btnToHome">Màn hình chính</button>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ================== CÀI ĐẶT CỦA GIÁO VIÊN ================== */
+const SHEETS_URL  = 'https://script.google.com/macros/s/AKfycby1NE9sR3OeaZZO_CWyu_ITzvWP5L5UJFMJozIW3CEq2u8K3AhDnFY1bhhdWCU1KMU4/exec';
+const LESSON_ID   = 'game-hoa11-ghk1';
+const SO_CAU      = 12;     // số câu trong một lượt thử thách
+const DIEM_TOI_DA = 10;     // thang điểm
+const GUI_DIEM    = true;   // false = không gửi kết quả lên Google Sheets
+/* =========================================================== */
+
+const TOPICS = {
+  1:{name:'Cân bằng hoá học',short:'Chủ đề 1'},
+  2:{name:'Cân bằng trong dung dịch nước',short:'Chủ đề 2'},
+  3:{name:'Đơn chất nitrogen',short:'Chủ đề 3'},
+  4:{name:'Ammonia – muối ammonium',short:'Chủ đề 4'}
+};
+
+/* ================== NGÂN HÀNG NỘI DUNG ================== */
+/* Phản ứng thuận nghịch: [chất, trạng thái, hệ số]; dH: số (kJ) hoặc '<0' / '>0'; noT: không hỏi về nhiệt độ */
+const RXN = [
+  {L:[['N₂','g',1],['H₂','g',3]], R:[['NH₃','g',2]], dH:-92},
+  {L:[['SO₂','g',2],['O₂','g',1]], R:[['SO₃','g',2]], dH:-198},
+  {L:[['N₂','g',1],['O₂','g',1]], R:[['NO','g',2]], dH:180},
+  {L:[['CaCO₃','s',1]], R:[['CaO','s',1],['CO₂','g',1]], dH:178},
+  {L:[['H₂','g',1],['I₂','g',1]], R:[['HI','g',2]], noT:true},
+  {L:[['CO','g',1],['H₂O','g',1]], R:[['CO₂','g',1],['H₂','g',1]], dH:'<0'},
+  {L:[['NO₂','g',2]], R:[['N₂O₄','g',1]], dH:-58, note:'NO₂ màu nâu đỏ, N₂O₄ không màu'},
+  {L:[['C₆H₅CH₂CH₃','g',1]], R:[['C₆H₅CH=CH₂','g',1],['H₂','g',1]], dH:123},
+  {L:[['C','s',1],['H₂O','g',1]], R:[['CO','g',1],['H₂','g',1]], dH:131},
+  {L:[['PCl₅','g',1]], R:[['PCl₃','g',1],['Cl₂','g',1]], dH:'>0'},
+  {L:[['C','s',1],['H₂','g',2]], R:[['CH₄','g',1]], dH:-75}
+];
+
+/* Brønsted – Lowry: [chất, vai trò A/B] theo thứ tự trong phương trình */
+const BRONSTED = [
+  [['NH₃','B'],['H₂O','A'],['NH₄⁺','A'],['OH⁻','B']],
+  [['CH₃COOH','A'],['H₂O','B'],['CH₃COO⁻','B'],['H₃O⁺','A']],
+  [['HF','A'],['H₂O','B'],['F⁻','B'],['H₃O⁺','A']],
+  [['CO₃²⁻','B'],['H₂O','A'],['HCO₃⁻','A'],['OH⁻','B']],
+  [['NH₄⁺','A'],['H₂O','B'],['NH₃','B'],['H₃O⁺','A']],
+  [['HCO₃⁻','A'],['H₂O','B'],['CO₃²⁻','B'],['H₃O⁺','A']],
+  [['HCO₃⁻','B'],['H₂O','A'],['H₂CO₃','A'],['OH⁻','B']]
+];
+
+/* Phân loại */
+const CLASSIFY = [
+  {t:2, title:'Xếp mỗi chất vào đúng nhóm theo khả năng điện li trong nước.',
+   rule:'Chất điện li mạnh: acid mạnh, base mạnh, hầu hết muối. Chất điện li yếu: acid yếu, base yếu. Chất không điện li: ethanol, glucose, saccharose, glycerol...',
+   bins:[{label:'Điện li mạnh',color:'var(--teal)',items:['HCl','HNO₃','H₂SO₄','NaOH','Ba(OH)₂','NaCl','KNO₃','NH₄Cl','Na₂SO₄']},
+         {label:'Điện li yếu',color:'var(--gold)',items:['CH₃COOH','HF','H₂S','HNO₂']},
+         {label:'Không điện li',color:'var(--pink)',items:['C₂H₅OH','C₆H₁₂O₆ (glucose)','C₁₂H₂₂O₁₁ (saccharose)','C₃H₅(OH)₃ (glycerol)']}]},
+  {t:2, title:'Dung dịch mỗi muối có môi trường gì?',
+   rule:'Ion Al³⁺, Fe³⁺, NH₄⁺ tạo môi trường acid; ion CO₃²⁻ tạo môi trường base; muối tạo bởi acid mạnh và base mạnh (NaCl, KNO₃, Na₂SO₄) có môi trường trung tính.',
+   bins:[{label:'Acid',color:'var(--pink)',items:['AlCl₃','Fe₂(SO₄)₃','NH₄Cl','Al₂(SO₄)₃']},
+         {label:'Trung tính',color:'var(--blue)',items:['NaCl','KNO₃','Na₂SO₄']},
+         {label:'Base',color:'var(--teal)',items:['Na₂CO₃','K₂CO₃']}]},
+  {t:2, title:'Nhỏ phenolphthalein vào dung dịch các chất. Dung dịch nào chuyển màu hồng?',
+   rule:'Phenolphthalein không màu trong môi trường acid và trung tính, chuyển hồng trong môi trường base (pH khoảng 8,3 trở lên).',
+   bins:[{label:'Hoá hồng',color:'var(--pink)',items:['NaOH','KOH','Ba(OH)₂','NH₃','Na₂CO₃']},
+         {label:'Không màu',color:'var(--blue)',items:['HCl','H₂SO₄','NaCl','KNO₃','HNO₃']}]},
+  {t:3, title:'Trong mỗi phản ứng, N₂ thể hiện tính gì?',
+   rule:'N₂ (số oxi hoá 0) nhận electron khi tác dụng với H₂, kim loại hoạt động (tính oxi hoá, N về −3); nhường electron khi tác dụng với O₂ (tính khử, N lên +2).',
+   bins:[{label:'Tính oxi hoá',color:'var(--teal)',items:['N₂ + 3H₂ ⇌ 2NH₃','N₂ + 3Mg → Mg₃N₂','N₂ + 6Li → 2Li₃N']},
+         {label:'Tính khử',color:'var(--pink)',items:['N₂ + O₂ ⇌ 2NO']}]},
+  {t:4, title:'Khi nhiệt phân, muối ammonium nào giải phóng khí NH₃?',
+   rule:'Muối ammonium của acid không có tính oxi hoá (HCl, H₂CO₃) bị nhiệt phân tạo NH₃. NH₄NO₃ tạo N₂O, NH₄NO₂ tạo N₂, không tạo NH₃.',
+   bins:[{label:'Tạo NH₃',color:'var(--teal)',items:['NH₄Cl','NH₄HCO₃','(NH₄)₂CO₃']},
+         {label:'Không tạo NH₃',color:'var(--pink)',items:['NH₄NO₃','NH₄NO₂']}]},
+  {t:4, title:'Trong mỗi phản ứng, NH₃ thể hiện tính chất nào?',
+   rule:'Tính base: NH₃ nhận H⁺ (tác dụng với nước, acid, dung dịch muối tạo hydroxide kết tủa). Tính khử: N (−3) trong NH₃ tăng số oxi hoá khi tác dụng với O₂, CuO...',
+   bins:[{label:'Tính base',color:'var(--teal)',items:['NH₃ + HCl → NH₄Cl','NH₃ + H₂O ⇌ NH₄⁺ + OH⁻','3NH₃ + AlCl₃ + 3H₂O → Al(OH)₃ + 3NH₄Cl']},
+         {label:'Tính khử',color:'var(--pink)',items:['4NH₃ + 3O₂ → 2N₂ + 6H₂O','4NH₃ + 5O₂ → 4NO + 6H₂O','2NH₃ + 3CuO → 3Cu + N₂ + 3H₂O']}]}
+];
+
+/* Đúng / Sai: [chủ đề, phát biểu, đúng?, giải thích ngắn] */
+const TF = [
+ [1,'Hằng số cân bằng K<sub>C</sub> của một phản ứng xác định chỉ phụ thuộc vào nhiệt độ.',true,'K<sub>C</sub> chỉ thay đổi khi nhiệt độ thay đổi.'],
+ [1,'Chất xúc tác làm cân bằng chuyển dịch theo chiều thuận.',false,'Chất xúc tác không làm chuyển dịch cân bằng.'],
+ [1,'Ở trạng thái cân bằng, phản ứng thuận và phản ứng nghịch dừng lại.',false,'Cân bằng hoá học là cân bằng động, hai phản ứng vẫn diễn ra.'],
+ [1,'Ở trạng thái cân bằng, tốc độ phản ứng thuận bằng tốc độ phản ứng nghịch.',true,'Đây là dấu hiệu của trạng thái cân bằng.'],
+ [1,'Khi tăng nhiệt độ, cân bằng chuyển dịch theo chiều phản ứng thu nhiệt.',true,'Theo nguyên lí Le Chatelier.'],
+ [1,'Khi tăng áp suất, cân bằng chuyển dịch theo chiều làm tăng số mol khí.',false,'Tăng áp suất → chiều làm giảm số mol khí.'],
+ [1,'Nồng độ chất rắn không có mặt trong biểu thức hằng số cân bằng K<sub>C</sub>.',true,'Chỉ có chất khí và chất tan.'],
+ [1,'Với phản ứng H₂(g) + I₂(g) ⇌ 2HI(g), thay đổi áp suất không làm chuyển dịch cân bằng.',true,'Số mol khí hai vế bằng nhau (2 = 2).'],
+ [1,'Trong tổng hợp NH₃ (Δ<sub>r</sub>H &lt; 0), tăng nhiệt độ làm cân bằng chuyển dịch theo chiều thuận.',false,'Tăng nhiệt độ → chiều thu nhiệt, tức chiều nghịch.'],
+ [1,'Ngâm bình chứa hỗn hợp NO₂ (nâu đỏ) và N₂O₄ vào nước đá thì màu nâu đỏ nhạt dần.',true,'2NO₂ ⇌ N₂O₄ có Δ<sub>r</sub>H &lt; 0; hạ nhiệt độ → chiều thuận, NO₂ giảm.'],
+ [1,'Để nâng cao hiệu suất nhiệt phân CaCO₃ (thu nhiệt) nên thực hiện ở nhiệt độ cao và áp suất thấp.',true,'Nhiệt độ cao và áp suất thấp đều làm cân bằng chuyển dịch theo chiều thuận.'],
+ [2,'Sự điện li là quá trình phân li các chất thành ion khi tan trong nước.',true,''],
+ [2,'Ethanol (C₂H₅OH) là chất điện li yếu.',false,'Ethanol là chất không điện li.'],
+ [2,'Acetic acid là chất điện li yếu nên phương trình điện li dùng mũi tên hai chiều.',true,'CH₃COOH ⇌ CH₃COO⁻ + H⁺.'],
+ [2,'Theo thuyết Brønsted – Lowry, base là chất nhận proton (H⁺).',true,''],
+ [2,'Theo thuyết Brønsted – Lowry, nước chỉ đóng vai trò acid.',false,'Nước có thể là acid hoặc base tuỳ phản ứng.'],
+ [2,'Ở 25 °C, dung dịch có pH = 7 có môi trường trung tính.',true,''],
+ [2,'pH càng nhỏ thì dung dịch có tính acid càng mạnh.',true,'pH = −lg[H⁺]; [H⁺] càng lớn thì pH càng nhỏ.'],
+ [2,'Phenolphthalein chuyển sang màu hồng trong dung dịch acid.',false,'Phenolphthalein hoá hồng trong môi trường base.'],
+ [2,'Phương trình điện li của Na₂SO₄ là Na₂SO₄ → Na²⁺ + SO₄²⁻.',false,'Đúng phải là Na₂SO₄ → 2Na⁺ + SO₄²⁻.'],
+ [2,'Dung dịch Na₂CO₃ có môi trường base.',true,'CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻.'],
+ [2,'Phèn chua làm trong nước vì Al³⁺ thuỷ phân tạo Al(OH)₃ dạng keo kéo các chất lơ lửng lắng xuống.',true,''],
+ [2,'Khi chuẩn độ, dung dịch đã biết chính xác nồng độ thường được đựng trong burette.',true,''],
+ [3,'Nitrogen chiếm khoảng 78% thể tích không khí.',true,''],
+ [3,'Ở nhiệt độ thường, N₂ khá trơ vì phân tử có liên kết ba bền vững.',true,'Năng lượng liên kết N≡N rất lớn.'],
+ [3,'Trong tự nhiên, nitrogen tồn tại chủ yếu ở dạng hợp chất.',false,'Chủ yếu ở dạng đơn chất N₂ trong không khí.'],
+ [3,'Trong phản ứng với hydrogen, N₂ thể hiện tính khử.',false,'N₂ thể hiện tính oxi hoá (0 → −3).'],
+ [3,'Trong phản ứng với oxygen, N₂ thể hiện tính khử.',true,'N: 0 → +2.'],
+ [3,'Trong cơn mưa dông, N₂ kết hợp trực tiếp với O₂ tạo thành NO₂.',false,'Sản phẩm trực tiếp là NO; sau đó NO mới bị oxi hoá thành NO₂.'],
+ [3,'Nitrogen lỏng được dùng để bảo quản mẫu sinh học như máu, tế bào.',true,''],
+ [3,'Phân tử N₂ gồm một liên kết σ và hai liên kết π.',true,''],
+ [3,'Khí nitrogen được dùng làm môi trường trơ để bảo quản thực phẩm.',true,''],
+ [4,'Phân tử NH₃ có dạng hình chóp tam giác.',true,''],
+ [4,'NH₃ tan rất ít trong nước.',false,'NH₃ tan rất nhiều trong nước.'],
+ [4,'Dung dịch NH₃ làm quỳ tím chuyển màu xanh.',true,''],
+ [4,'Khí NH₃ gặp khí HCl tạo "khói trắng" là các hạt NH₄Cl.',true,''],
+ [4,'Trong phản ứng 4NH₃ + 3O₂ → 2N₂ + 6H₂O, NH₃ thể hiện tính khử.',true,'N: −3 → 0.'],
+ [4,'Nguyên tử N trong NH₃ có số oxi hoá +3.',false,'Số oxi hoá của N trong NH₃ là −3.'],
+ [4,'Nhận biết ion NH₄⁺ bằng dung dịch kiềm, đun nhẹ thấy khí mùi khai làm quỳ tím ẩm hoá xanh.',true,''],
+ [4,'Tất cả muối ammonium khi nhiệt phân đều tạo ra NH₃.',false,'NH₄NO₃ tạo N₂O, NH₄NO₂ tạo N₂.'],
+ [4,'NH₄HCO₃ được dùng làm bột nở trong chế biến thực phẩm.',true,''],
+ [4,'Trong quá trình Haber, tăng nhiệt độ làm tăng hiệu suất tổng hợp NH₃.',false,'Phản ứng toả nhiệt; tăng nhiệt độ làm cân bằng chuyển dịch theo chiều nghịch.']
+];
+
+/* Trắc nghiệm: [chủ đề, câu hỏi, đáp án đúng, [3 phương án nhiễu], giải thích] */
+const MCQ = [
+ [1,'Phản ứng thuận nghịch là phản ứng','Trong cùng điều kiện, xảy ra theo hai chiều trái ngược nhau',['Chỉ xảy ra theo một chiều nhất định','Có phương trình dùng mũi tên một chiều','Chỉ xảy ra giữa các chất khí'],'Phản ứng thuận nghịch được biểu diễn bằng mũi tên hai chiều ⇌.'],
+ [1,'Hằng số cân bằng K<sub>C</sub> của một phản ứng phụ thuộc vào yếu tố nào?','Nhiệt độ',['Chất xúc tác','Nồng độ','Áp suất'],'K<sub>C</sub> chỉ phụ thuộc vào nhiệt độ.'],
+ [1,'Yếu tố nào sau đây luôn không làm chuyển dịch cân bằng?','Chất xúc tác',['Nhiệt độ','Áp suất','Nồng độ'],'Chất xúc tác tăng tốc độ cả hai chiều như nhau.'],
+ [1,'Các yếu tố có thể ảnh hưởng đến cân bằng hoá học là','Nồng độ, nhiệt độ và áp suất',['Nồng độ, nhiệt độ và chất xúc tác','Áp suất, nhiệt độ và chất xúc tác','Nồng độ, áp suất và diện tích bề mặt'],''],
+ [1,'Theo nguyên lí Le Chatelier, khi chịu một tác động từ bên ngoài, cân bằng chuyển dịch theo chiều','Làm giảm tác động bên ngoài đó',['Làm tăng tác động bên ngoài đó','Luôn là chiều thuận','Luôn là chiều toả nhiệt'],''],
+ [2,'Theo thuyết Brønsted – Lowry, acid là chất','Cho proton (H⁺)',['Nhận proton (H⁺)','Tác dụng được với base','Điện li mạnh trong nước'],''],
+ [2,'Chất nào sau đây là chất điện li mạnh?','NaCl',['CH₃COOH','HF','C₂H₅OH'],'NaCl là muối tan, điện li hoàn toàn.'],
+ [2,'Chất nào sau đây không điện li khi tan trong nước?','Saccharose (C₁₂H₂₂O₁₁)',['HCl','KOH','CH₃COOH'],''],
+ [2,'Khi chuẩn độ, dung dịch được thêm từ từ vào bình tam giác từ dụng cụ nào?','Burette',['Pipette','Bình định mức','Ống đong'],''],
+ [2,'Dung dịch có [H⁺] = 10⁻³ M thì pH bằng','3',['−3','11','0,001'],'pH = −lg[H⁺] = −lg 10⁻³ = 3.'],
+ [2,'Hoá chất nào thường được dùng để làm tăng pH của nước hồ bơi?','Na₂CO₃',['H₂SO₄','HCl','NH₄Cl'],'CO₃²⁻ tạo môi trường base.'],
+ [2,'Phèn chua được dùng để làm trong nước vì','Al³⁺ thuỷ phân tạo Al(OH)₃ dạng keo kéo các chất lơ lửng lắng xuống',['Al³⁺ tạo môi trường base diệt khuẩn','Phèn chua oxi hoá các chất hữu cơ','Phèn chua làm tăng pH của nước'],''],
+ [2,'Thang pH thường dùng có giá trị từ','1 đến 14',['0 đến 7','2 đến 14','1 đến 10'],''],
+ [3,'Trong khí quyển, nitrogen chiếm khoảng bao nhiêu phần trăm thể tích?','78%',['21%','1%','99%'],''],
+ [3,'Ở nhiệt độ thường, nitrogen khá trơ về mặt hoá học là do','Phân tử N₂ có liên kết ba bền vững',['Nitrogen có bán kính nguyên tử nhỏ','Nitrogen có độ âm điện lớn','Phân tử N₂ không phân cực'],''],
+ [3,'Trong cơn mưa dông có sấm sét, N₂ kết hợp trực tiếp với O₂ tạo thành','NO',['NO₂','N₂O','NH₃'],''],
+ [3,'Diêm tiêu Chile là tên gọi khác của hợp chất nào?','Sodium nitrate (NaNO₃)',['Sodium chloride','Potassium nitrate','Potassium sulfate'],''],
+ [3,'Trong tự nhiên, nguyên tố nitrogen có trong hợp chất hữu cơ nào?','Protein',['Cellulose','Tinh bột','Glucose'],''],
+ [3,'Phản ứng giữa N₂ và O₂ trong cơn mưa dông là khởi đầu cho quá trình cung cấp loại phân nào cho đất?','Đạm nitrate',['Đạm ammonium','Phân lân','Phân kali'],'N₂ → NO → NO₂ → HNO₃ → ion NO₃⁻ trong đất.'],
+ [4,'Phân tử NH₃ có dạng hình học nào?','Chóp tam giác',['Tam giác phẳng','Đường thẳng','Tứ diện đều'],''],
+ [4,'Thí nghiệm "phun nước" với bình khí NH₃ và nước có phenolphthalein chứng minh','NH₃ tan nhiều trong nước và có tính base',['Chỉ tính tan nhiều của NH₃','Chỉ tính base của NH₃','Tính khử của NH₃'],'Nước phun mạnh (tan nhiều) và chuyển màu hồng (tính base).'],
+ [4,'Để khử mùi khai của ammonia còn lại trên tã lót, nên cho vào nước xả cuối một ít','Giấm ăn',['Phèn chua','Muối ăn','Nước gừng'],'Acid trong giấm trung hoà NH₃.'],
+ [4,'Thuốc thử dùng để nhận biết ion NH₄⁺ là','Dung dịch kiềm (NaOH), đun nhẹ',['Dung dịch AgNO₃','Dung dịch BaCl₂','Quỳ tím khô'],'NH₄⁺ + OH⁻ → NH₃↑ + H₂O.'],
+ [4,'Muối nào được dùng làm bột nở trong chế biến thực phẩm?','NH₄HCO₃',['NH₄Cl','NH₄NO₃','(NH₄)₂SO₄'],''],
+ [4,'Chất xúc tác dùng trong quá trình Haber tổng hợp NH₃ là','Iron (Fe)',['Platinum (Pt)','V₂O₅','Nickel (Ni)'],'']
+];
+
+/* Thẻ ghi nhớ: [chủ đề, mặt trước, mặt sau] */
+const CARDS = [
+ [1,'Phản ứng thuận nghịch','Trong cùng điều kiện, phản ứng xảy ra theo hai chiều trái ngược nhau. Dùng mũi tên ⇌.'],
+ [1,'Trạng thái cân bằng','Tốc độ phản ứng thuận bằng tốc độ phản ứng nghịch. Cân bằng động: hai phản ứng vẫn diễn ra.'],
+ [1,'Biểu thức K<sub>C</sub> của aA + bB ⇌ cC + dD','K<sub>C</sub> = [C]<sup>c</sup>[D]<sup>d</sup> / ([A]<sup>a</sup>[B]<sup>b</sup>). Chỉ có chất khí và chất tan, không có chất rắn.'],
+ [1,'K<sub>C</sub> phụ thuộc vào?','Chỉ phụ thuộc nhiệt độ (với một phản ứng xác định).'],
+ [1,'Nguyên lí Le Chatelier','Cân bằng chuyển dịch theo chiều làm giảm tác động bên ngoài.'],
+ [1,'Tăng nhiệt độ','Cân bằng chuyển dịch theo chiều thu nhiệt (Δ<sub>r</sub>H &gt; 0). Giảm nhiệt độ: chiều toả nhiệt.'],
+ [1,'Tăng áp suất','Cân bằng chuyển dịch theo chiều làm giảm số mol khí. Số mol khí hai vế bằng nhau: không chuyển dịch.'],
+ [1,'Tăng nồng độ một chất','Cân bằng chuyển dịch theo chiều làm giảm nồng độ chất đó.'],
+ [1,'Chất xúc tác','Không làm chuyển dịch cân bằng, chỉ giúp hệ đạt cân bằng nhanh hơn.'],
+ [1,'2NO₂ (nâu đỏ) ⇌ N₂O₄ (không màu), Δ<sub>r</sub>H &lt; 0','Ngâm nước đá: màu nhạt đi (chiều thuận). Ngâm nước nóng: màu đậm lên (chiều nghịch).'],
+ [2,'Sự điện li','Quá trình phân li các chất thành ion khi tan trong nước.'],
+ [2,'Chất điện li mạnh','Acid mạnh, base mạnh, hầu hết muối. Phương trình điện li dùng mũi tên →.'],
+ [2,'Chất điện li yếu','Acid yếu, base yếu (CH₃COOH, HF, H₂S...). Phương trình điện li dùng mũi tên ⇌.'],
+ [2,'Chất không điện li','Ethanol, glucose, saccharose, glycerol...'],
+ [2,'Acid – base theo Brønsted – Lowry','Acid là chất cho H⁺. Base là chất nhận H⁺. H₂O, HCO₃⁻ vừa có thể cho vừa có thể nhận H⁺.'],
+ [2,'Công thức pH','pH = −lg[H⁺], [H⁺] = 10<sup>−pH</sup>. Ở 25 °C: pH &lt; 7 acid, pH = 7 trung tính, pH &gt; 7 base.'],
+ [2,'Quỳ tím','Acid: đỏ. Base: xanh. Trung tính: tím (không đổi màu).'],
+ [2,'Phenolphthalein','Không màu trong môi trường acid và trung tính. Hồng trong môi trường base (pH ≥ 8,3).'],
+ [2,'Nguyên tắc chuẩn độ acid – base','Dùng dung dịch chuẩn đã biết nồng độ. Tại điểm tương đương n(H⁺) = n(OH⁻); với acid, base một nấc: C₁V₁ = C₂V₂.'],
+ [2,'Ion Al³⁺, Fe³⁺ trong nước','Thuỷ phân tạo môi trường acid; hydroxide dạng keo giúp làm trong nước (phèn chua, phèn sắt).'],
+ [2,'Ion CO₃²⁻ trong nước','CO₃²⁻ + H₂O ⇌ HCO₃⁻ + OH⁻: môi trường base. Na₂CO₃ dùng tẩy rửa, làm tăng pH nước.'],
+ [3,'Trạng thái tự nhiên của nitrogen','Đơn chất N₂ chiếm khoảng 78% thể tích không khí. Hợp chất: NaNO₃ (diêm tiêu Chile), protein.'],
+ [3,'Vì sao N₂ trơ ở nhiệt độ thường?','Liên kết ba N≡N (1σ, 2π) có năng lượng liên kết rất lớn (khoảng 945 kJ/mol).'],
+ [3,'N₂ + H₂','N₂ + 3H₂ ⇌ 2NH₃ (t°, p, xúc tác Fe). N₂ thể hiện tính oxi hoá.'],
+ [3,'N₂ + O₂','N₂ + O₂ ⇌ 2NO (khoảng 3000 °C hoặc tia lửa điện). N₂ thể hiện tính khử.'],
+ [3,'Mưa dông cung cấp đạm cho đất','N₂ → NO → NO₂ → HNO₃ → ion NO₃⁻ (đạm nitrate) trong đất.'],
+ [3,'Ứng dụng của nitrogen','Khí N₂: môi trường trơ, tổng hợp NH₃. N₂ lỏng: làm lạnh nhanh, bảo quản mẫu sinh học.'],
+ [4,'Cấu tạo phân tử NH₃','Hình chóp tam giác; N còn một cặp electron chưa liên kết; phân tử phân cực.'],
+ [4,'Tính tan của NH₃','Tan rất nhiều trong nước (thí nghiệm phun nước) do phân cực và tạo liên kết hydrogen với nước.'],
+ [4,'Tính base của NH₃','NH₃ + H₂O ⇌ NH₄⁺ + OH⁻: quỳ tím ẩm hoá xanh. NH₃ + HCl → NH₄Cl ("khói trắng").'],
+ [4,'Tính khử của NH₃','4NH₃ + 3O₂ → 2N₂ + 6H₂O (t°). 4NH₃ + 5O₂ → 4NO + 6H₂O (Pt, t°).'],
+ [4,'Quá trình Haber','N₂ + 3H₂ ⇌ 2NH₃, Δ<sub>r</sub>H = −92 kJ. Áp suất cao, nhiệt độ vừa phải (khoảng 400–450 °C), xúc tác Fe.'],
+ [4,'Nhận biết ion NH₄⁺','NH₄⁺ + OH⁻ → NH₃↑ + H₂O (đun nhẹ): khí mùi khai, làm quỳ tím ẩm hoá xanh.'],
+ [4,'Nhiệt phân muối ammonium','NH₄Cl → NH₃ + HCl. NH₄HCO₃ → NH₃ + CO₂ + H₂O. NH₄NO₃ → N₂O + 2H₂O.'],
+ [4,'Ứng dụng NH₃ và muối ammonium','NH₃: sản xuất HNO₃, phân đạm, chất làm lạnh. NH₄HCO₃: bột nở. NH₄Cl, NH₄NO₃: phân đạm.']
+];
+/* ======================================================== */
+
+const $=id=>document.getElementById(id);
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const vn=(x,d=3)=>Number(x).toLocaleString('vi-VN',{maximumFractionDigits:d});
+function store(k,v){try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(_){}}
+function load(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch(_){return d}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COLORS=['#6EE7D2','#FFC94A','#FF9AB0','#9CC2FF','#C9A7FF'];
+const strip=h=>h.replace(/<sub>(.*?)<\/sub>/g,'$1').replace(/<sup>(.*?)<\/sup>/g,'^$1').replace(/<[^>]+>/g,' ').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/\s+/g,' ').trim();
+
+/* ---------- Âm thanh ---------- */
+let AC=null,muted=load('h11-muted',false);
+function tone(f,d=.09,type='sine',v=.07,w=0){if(muted)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+  const t=AC.currentTime+w,o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+d+.02)}catch(_){}}
+const sfx={tap:(i=0)=>tone(440*Math.pow(2,i/8),.07,'triangle'),right:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.16,'triangle',.07,i*.08)),
+  wrong:()=>{tone(196,.18,'square',.04);tone(147,.25,'square',.04,.12)},flip:()=>tone(660,.05,'sine',.04)};
+function paintMute(){$('btnMute').innerHTML=muted
+  ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>'
+  :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>'}
+
+/* ---------- Phản ứng: hiển thị và tính toán ---------- */
+const STATE_TXT={g:'g',s:'s',l:'l',aq:'aq'};
+const sp=([f,s,c])=>`${c>1?c:''}${f}(${STATE_TXT[s]})`;
+const eqHTML=r=>r.L.map(sp).join(' + ')+' ⇌ '+r.R.map(sp).join(' + ');
+const dHtxt=r=>r.noT?'':typeof r.dH==='number'?`Δ<sub>r</sub>H°<sub>298</sub> = ${r.dH>0?'+':'−'}${Math.abs(r.dH)} kJ`:`Δ<sub>r</sub>H°<sub>298</sub> ${r.dH==='<0'?'&lt;':'&gt;'} 0`;
+const endo=r=>typeof r.dH==='number'?r.dH>0:r.dH==='>0';
+const gasMol=side=>side.filter(x=>x[1]==='g').reduce((a,x)=>a+x[2],0);
+function beamSVG(r,tilt){
+  const left=r.L.map(x=>x[0]).join(' + '),right=r.R.map(x=>x[0]).join(' + ');
+  return `<svg class="beam" viewBox="0 0 340 120" aria-hidden="true">
+    <polygon points="170,62 156,104 184,104" fill="#45397C"/>
+    <g class="arm" style="transform:rotate(${tilt}deg)">
+      <rect x="20" y="56" width="300" height="8" rx="4" fill="#B3ABD9"/>
+      <rect x="20" y="22" width="110" height="34" rx="10" fill="#2E2750" stroke="#9CC2FF"/>
+      <rect x="210" y="22" width="110" height="34" rx="10" fill="#2E2750" stroke="#FF9AB0"/>
+      <text x="75" y="44" text-anchor="middle" font-size="${left.length>14?10:13}" font-weight="800" fill="#9CC2FF">${left}</text>
+      <text x="265" y="44" text-anchor="middle" font-size="${right.length>14?10:13}" font-weight="800" fill="#FF9AB0">${right}</text>
+    </g>
+    <text x="75" y="117" text-anchor="middle" font-size="11" fill="#B3ABD9">chất phản ứng</text>
+    <text x="265" y="117" text-anchor="middle" font-size="11" fill="#B3ABD9">sản phẩm</text></svg>`;
+}
+/* sinh danh sách tác động hợp lệ cho một phản ứng */
+function disturbances(r){
+  const out=[],gl=gasMol(r.L),gr=gasMol(r.R),en=endo(r);
+  if(!r.noT){
+    out.push({t:'Tăng nhiệt độ',a:en?'thuan':'nghich',why:`Phản ứng thuận ${en?'thu nhiệt (Δ<sub>r</sub>H > 0)':'toả nhiệt (Δ<sub>r</sub>H < 0)'}. Tăng nhiệt độ → cân bằng chuyển dịch theo chiều thu nhiệt, tức chiều ${en?'thuận':'nghịch'}.`});
+    out.push({t:'Giảm nhiệt độ',a:en?'nghich':'thuan',why:`Phản ứng thuận ${en?'thu nhiệt':'toả nhiệt'}. Giảm nhiệt độ → cân bằng chuyển dịch theo chiều toả nhiệt, tức chiều ${en?'nghịch':'thuận'}.`});
+  }
+  const pw=(up)=>{const molTxt=`Số mol khí: vế trái ${gl}, vế phải ${gr}${r.L.concat(r.R).some(x=>x[1]==='s')?' (không tính chất rắn)':''}.`;
+    if(gl===gr)return {a:'khong',why:`${molTxt} Số mol khí hai vế bằng nhau nên áp suất không làm chuyển dịch cân bằng.`};
+    const toward=up?(gl>gr?'thuan':'nghich'):(gl>gr?'nghich':'thuan');
+    return {a:toward,why:`${molTxt} ${up?'Tăng':'Giảm'} áp suất → chiều làm ${up?'giảm':'tăng'} số mol khí, tức chiều ${toward==='thuan'?'thuận':'nghịch'}.`}};
+  out.push({t:'Tăng áp suất chung của hệ',...pw(true)});
+  out.push({t:'Giảm áp suất chung của hệ',...pw(false)});
+  r.L.filter(x=>x[1]!=='s').forEach(x=>{
+    out.push({t:`Thêm ${x[0]} vào hệ`,a:'thuan',why:`${x[0]} là chất phản ứng. Tăng nồng độ ${x[0]} → cân bằng chuyển dịch theo chiều làm giảm ${x[0]}, tức chiều thuận.`});
+    out.push({t:`Lấy bớt ${x[0]} ra khỏi hệ`,a:'nghich',why:`Giảm nồng độ chất phản ứng ${x[0]} → cân bằng chuyển dịch theo chiều tạo thêm ${x[0]}, tức chiều nghịch.`})});
+  r.R.filter(x=>x[1]!=='s').forEach(x=>{
+    out.push({t:`Thêm ${x[0]} vào hệ`,a:'nghich',why:`${x[0]} là sản phẩm. Tăng nồng độ ${x[0]} → cân bằng chuyển dịch theo chiều làm giảm ${x[0]}, tức chiều nghịch.`});
+    out.push({t:`Tách ${x[0]} ra khỏi hệ`,a:'thuan',why:`Giảm nồng độ sản phẩm ${x[0]} → cân bằng chuyển dịch theo chiều tạo thêm ${x[0]}, tức chiều thuận.`})});
+  out.push({t:'Thêm chất xúc tác',a:'khong',why:'Chất xúc tác làm tăng tốc độ phản ứng thuận và nghịch như nhau nên không làm chuyển dịch cân bằng.'});
+  return out;
+}
+const DIR_TXT={thuan:'Chiều thuận',nghich:'Chiều nghịch',khong:'Không chuyển dịch'};
+function kcHTML(r){
+  const term=([f,s,c])=>`[${f}]${c>1?`<sup>${c}</sup>`:''}`;
+  const num=r.R.filter(x=>x[1]!=='s').map(term).join(''),den=r.L.filter(x=>x[1]!=='s').map(term).join('');
+  return `K<sub>C</sub> = ${den?`<span class="frac"><span>${num||'1'}</span><span>${den}</span></span>`:num}`;
+}
+
+/* ================== SINH CÂU HỎI ================== */
+const TYPES={shift:'Chuyển dịch cân bằng',kc:'Biểu thức hằng số cân bằng',bronsted:'Acid – base Brønsted',classify:'Phân loại',tf:'Đúng / Sai',short:'Trả lời ngắn',mcq:'Trắc nghiệm'};
+const TYPE_TOPICS={shift:[1],kc:[1],bronsted:[2],classify:[2,3,4],tf:[1,2,3,4],short:[1,2],mcq:[1,2,3,4]};
+const typesFor=tp=>Object.keys(TYPES).filter(t=>TYPE_TOPICS[t].some(x=>tp.includes(x)));
+
+function genShift(){
+  const ri=Math.floor(Math.random()*(RXN.length-1)); // phản ứng cuối chỉ dùng cho K_C
+  const r=RXN[ri],d=rnd(disturbances(r));
+  return {type:'shift',topic:1,r,d,sel:null,key:'s'+ri+d.t};
+}
+function genKc(){
+  const ri=Math.floor(Math.random()*RXN.length),r=RXN[ri];
+  const sps=[...r.L.map(x=>({x,side:'L'})),...r.R.map(x=>({x,side:'R'}))].map((o,i)=>({id:'k'+i,label:sp(o.x),ans:o.x[1]==='s'?'none':o.side==='R'?'num':'den'}));
+  return {type:'kc',topic:1,r,sps,sel:{},key:'k'+ri};
+}
+function genBronsted(){
+  const bi=Math.floor(Math.random()*BRONSTED.length),b=BRONSTED[bi];
+  return {type:'bronsted',topic:2,b,sel:{},key:'b'+bi};
+}
+function genClassify(tp,used){
+  const all=CLASSIFY.filter(s=>tp.includes(s.t)),fresh=all.filter(s=>!used.has('CS'+CLASSIFY.indexOf(s)));
+  const set=rnd(fresh.length?fresh:all);used.add('CS'+CLASSIFY.indexOf(set));
+  const per=set.bins.length===2?[3,3]:[3,2,2];const items=[];
+  set.bins.forEach((b,bi)=>shuffle(b.items).slice(0,Math.min(per[bi],b.items.length)).forEach(t=>items.push({id:'i'+items.length,label:t,bin:bi})));
+  return {type:'classify',topic:set.t,set,items:shuffle(items),sel:{},active:null,key:'c'+CLASSIFY.indexOf(set)+items.map(i=>i.label).sort().join()};
+}
+function genTF(tp,used){
+  const pool=TF.filter(s=>tp.includes(s[0])&&!used.has('tf'+TF.indexOf(s)));
+  const base=pool.length>=4?pool:TF.filter(s=>tp.includes(s[0]));
+  const pick=shuffle(base).slice(0,4);pick.forEach(s=>used.add('tf'+TF.indexOf(s)));
+  const topics=[...new Set(pick.map(s=>s[0]))];
+  return {type:'tf',topic:topics.length===1?topics[0]:0,items:pick.map((s,i)=>({id:'t'+i,text:s[1],ans:s[2],why:s[3]})),sel:{},key:'tf'+pick.map(s=>TF.indexOf(s)).sort().join()};
+}
+function genMcq(tp,used){
+  const pool=MCQ.filter(m=>tp.includes(m[0])&&!used.has('q'+MCQ.indexOf(m)));
+  const m=rnd(pool.length?pool:MCQ.filter(m=>tp.includes(m[0])));used.add('q'+MCQ.indexOf(m));
+  return {type:'mcq',topic:m[0],stem:m[1],opts:shuffle([m[2],...m[3]]),answer:m[2],explain:m[4],sel:null,key:'q'+MCQ.indexOf(m)};
+}
+const fx=(x,d)=>Number(x.toFixed(d));
+function genShort(tp){
+  const kinds=[];if(tp.includes(1))kinds.push('kc1','kc2','count','count');if(tp.includes(2))kinds.push('ph','ph','titr','titr');
+  const k=rnd(kinds);
+  if(k==='kc1'){const a=rnd([0.1,0.2,0.25,0.5]),b=rnd([0.4,0.5,0.6,0.8,1]),K=fx(b*b/(a*a),2);
+    return {type:'short',topic:1,stem:`Cho phản ứng H₂(g) + I₂(g) ⇌ 2HI(g). Ở trạng thái cân bằng: [H₂] = [I₂] = ${vn(a)} M; [HI] = ${vn(b)} M. Tính hằng số cân bằng K<sub>C</sub>.`,
+      note:'Làm tròn đến hàng phần trăm nếu cần.',answer:K,tol:0.011,explain:`K<sub>C</sub> = [HI]² / ([H₂][I₂]) = ${vn(b)}² / (${vn(a)} × ${vn(a)}) = ${vn(K,2)}.`,key:'kc1'+a+b}}
+  if(k==='kc2'){let n,h,m,K;do{n=rnd([0.01,0.02,0.05,0.1]);h=rnd([0.5,1,2]);m=rnd([0.1,0.2,0.4]);K=m*m/(n*h*h*h)}while(K<0.1||Math.abs(K*100-Math.round(K*100))>1e-6);K=fx(K,2);
+    return {type:'short',topic:1,stem:`Cho phản ứng N₂(g) + 3H₂(g) ⇌ 2NH₃(g). Ở trạng thái cân bằng: [N₂] = ${vn(n)} M; [H₂] = ${vn(h)} M; [NH₃] = ${vn(m)} M. Tính hằng số cân bằng K<sub>C</sub>.`,
+      note:'Làm tròn đến hàng phần trăm nếu cần.',answer:K,tol:Math.max(0.011,K*0.002),explain:`K<sub>C</sub> = [NH₃]² / ([N₂][H₂]³) = ${vn(m)}² / (${vn(n)} × ${vn(h)}³) = ${vn(K,2)}.`,key:'kc2'+n+h+m}}
+  if(k==='count'){
+    let r,ds;do{r=rnd(RXN.slice(0,-1));ds=shuffle(disturbances(r)).slice(0,5)}while(ds.length<5);
+    const dir=rnd(['thuan','nghich']),ans=ds.filter(d=>d.a===dir).length;
+    return {type:'short',topic:1,stem:`Cho cân bằng: ${eqHTML(r)}${r.noT?'':'; '+dHtxt(r)}.<small>Các tác động: ${ds.map((d,i)=>`(${i+1}) ${d.t.charAt(0).toLowerCase()+d.t.slice(1)}`).join('; ')}.</small>Có bao nhiêu tác động làm cân bằng chuyển dịch theo chiều ${dir==='thuan'?'thuận':'nghịch'}?`,
+      note:'Nhập một số nguyên.',answer:ans,tol:0.01,explain:ds.map((d,i)=>`(${i+1}) ${DIR_TXT[d.a]}`).join('; ')+`. Có ${ans} tác động làm cân bằng chuyển dịch theo chiều ${dir==='thuan'?'thuận':'nghịch'}.`,key:'ct'+Math.random()}}
+  if(k==='ph'){
+    const c=rnd([
+      ()=>{const n=rnd([1,2,3]),a=rnd(['HCl','HNO₃']);return [`dung dịch ${a} ${vn(Math.pow(10,-n),4)} M`,n,`${a} → H⁺ + ...; [H⁺] = ${vn(Math.pow(10,-n),4)} M → pH = ${n}.`]},
+      ()=>{const n=rnd([1,2,3]),b=rnd(['NaOH','KOH']);return [`dung dịch ${b} ${vn(Math.pow(10,-n),4)} M`,14-n,`[OH⁻] = ${vn(Math.pow(10,-n),4)} M → pOH = ${n} → pH = 14 − ${n} = ${14-n}.`]},
+      ()=>{const [c,p]=rnd([[0.05,13],[0.005,12],[0.0005,11]]);return [`dung dịch Ba(OH)₂ ${vn(c,4)} M`,p,`Ba(OH)₂ → Ba²⁺ + 2OH⁻; [OH⁻] = 2 × ${vn(c,4)} = ${vn(2*c,4)} M → pOH = ${14-p} → pH = ${p}.`]},
+      ()=>{const [c,p]=rnd([[0.05,1],[0.005,2],[0.0005,3]]);return [`dung dịch H₂SO₄ ${vn(c,4)} M (coi H₂SO₄ phân li hoàn toàn hai nấc)`,p,`H₂SO₄ → 2H⁺ + SO₄²⁻; [H⁺] = 2 × ${vn(c,4)} = ${vn(2*c,4)} M → pH = ${p}.`]}])();
+    return {type:'short',topic:2,stem:`Tính pH của ${c[0]} ở 25 °C.`,note:'Nhập một số.',answer:c[1],tol:0.01,explain:c[2],key:'ph'+c[0]}}
+  // chuẩn độ
+  for(let g=0;g<50;g++){
+    const ca=rnd([0.05,0.08,0.1,0.12,0.15,0.2]),va=rnd([10,20]),cb=rnd([0.1,0.2]),vb=ca*va/cb;
+    if(vb<5||vb>30||Math.abs(vb*10-Math.round(vb*10))>1e-9)continue;
+    const flip=Math.random()<.5;
+    if(!flip)return {type:'short',topic:2,stem:`Chuẩn độ ${va} mL dung dịch HCl bằng dung dịch NaOH ${vn(cb)} M thì dùng hết ${vn(vb,1)} mL. Tính nồng độ mol của dung dịch HCl.`,
+      note:'Đơn vị M, làm tròn đến hàng phần trăm.',answer:ca,tol:0.005,explain:`n(HCl) = n(NaOH) ⇒ C(HCl) × ${va} = ${vn(cb)} × ${vn(vb,1)} ⇒ C(HCl) = ${vn(ca)} M.`,key:'ti'+ca+va+cb};
+    return {type:'short',topic:2,stem:`Chuẩn độ ${va} mL dung dịch KOH bằng dung dịch HCl ${vn(cb)} M thì dùng hết ${vn(vb,1)} mL. Tính nồng độ mol của dung dịch KOH.`,
+      note:'Đơn vị M, làm tròn đến hàng phần trăm.',answer:ca,tol:0.005,explain:`n(KOH) = n(HCl) ⇒ C(KOH) × ${va} = ${vn(cb)} × ${vn(vb,1)} ⇒ C(KOH) = ${vn(ca)} M.`,key:'tk'+ca+va+cb};
+  }
+}
+function gen(type,tp,used=new Set()){
+  if(type==='shift')return genShift();
+  if(type==='kc')return genKc();
+  if(type==='bronsted')return genBronsted();
+  if(type==='classify')return genClassify(tp,used);
+  if(type==='tf')return genTF(tp,used);
+  if(type==='short')return genShort(tp);
+  return genMcq(tp,used);
+}
+
+/* ================== HIỂN THỊ ================== */
+const topicLabel=q=>q.topic?TOPICS[q.topic].name:'Nhiều chủ đề';
+function segHTML(name,opts,cur,ans,done){
+  return `<div class="seg">${opts.map(([v,t])=>{let c=cur===v?'on':'';if(done)c=ans===v?'good':cur===v?'bad':'';
+    return `<button class="${c}" data-act="seg" data-n="${name}" data-v="${v}" ${done?'disabled':''}>${t}</button>`}).join('')}</div>`;
+}
+function render(){
+  const q=S.q,done=S.checked;
+  let h=`<div class="qmeta"><span class="t"><i></i>${TYPES[q.type]}</span><span class="c">${topicLabel(q)}</span></div>`;
+  if(q.type==='shift'){
+    const tilt=done?{thuan:9,nghich:-9,khong:0}[q.d.a]:0;
+    h+=`<div class="qtext">Cân bằng sẽ chuyển dịch theo chiều nào?</div>
+      <div class="eq">${eqHTML(q.r)}${dHtxt(q.r)?`<small>${dHtxt(q.r)}</small>`:''}${q.r.note?`<small>${q.r.note}</small>`:''}</div>
+      <div class="dist"><span>TÁC ĐỘNG</span>${q.d.t}</div>${beamSVG(q.r,0).replace('rotate(0deg)',`rotate(0deg)" data-tilt="${tilt}`)}
+      <div class="opts three">${[['nghich','← Chiều nghịch'],['khong','Không chuyển dịch'],['thuan','Chiều thuận →']].map(([v,t])=>{
+        let c=q.sel===v?' sel':'';if(done)c=v===q.d.a?' good':q.sel===v?' bad':'';
+        return `<button class="opt${c}" data-act="pick" data-v="${v}" ${done?'disabled':''}>${t}</button>`}).join('')}</div>`;
+  }
+  if(q.type==='kc'){
+    h+=`<div class="qtext">Mỗi chất nằm ở đâu trong biểu thức hằng số cân bằng K<sub>C</sub>?<small>Số mũ bằng hệ số của chất trong phương trình.</small></div>
+      <div class="eq">${eqHTML(q.r)}</div><div class="rows">${q.sps.map(s=>`<div class="rw${done?(q.sel[s.id]===s.ans?' good':' bad'):''}"><div class="lb">${s.label}</div>
+      ${segHTML(s.id,[['num','Tử số'],['den','Mẫu số'],['none','Không có mặt']],q.sel[s.id],s.ans,done)}</div>`).join('')}</div>
+      ${done?`<div class="eq" style="margin:12px 0 0">${kcHTML(q.r)}</div>`:''}`;
+  }
+  if(q.type==='bronsted'){
+    const eq=`${q.b[0][0]} + ${q.b[1][0]} ⇌ ${q.b[2][0]} + ${q.b[3][0]}`;
+    h+=`<div class="qtext">Theo thuyết Brønsted – Lowry, mỗi chất trong cân bằng sau đóng vai trò acid hay base?<small>Xét chiều thuận cho hai chất bên trái và chiều nghịch cho hai chất bên phải.</small></div>
+      <div class="eq">${eq}</div><div class="rows">${q.b.map((s,i)=>`<div class="rw${done?(q.sel['b'+i]===s[1]?' good':' bad'):''}"><div class="lb">${s[0]} <span style="color:var(--muted);font-weight:500;font-size:13px">(${i<2?'chiều thuận':'chiều nghịch'})</span></div>
+      ${segHTML('b'+i,[['A','Acid'],['B','Base']],q.sel['b'+i],s[1],done)}</div>`).join('')}</div>`;
+  }
+  if(q.type==='classify'){
+    h+=`<div class="qtext">${q.set.title}<small>Chạm vào một chất rồi chạm vào nhóm phù hợp. Chạm chất đã xếp để đưa về lại.</small></div>
+      <div class="pool">${q.items.filter(i=>q.sel[i.id]===undefined).map(i=>`<button class="tok${q.active===i.id?' active':''}" data-act="item" data-id="${i.id}">${i.label}</button>`).join('')}</div>
+      <div class="bins${q.active&&!done?' armed':''}">${q.set.bins.map((b,bi)=>`<button class="bin" data-act="bin" data-b="${bi}" ${done?'disabled':''}>
+        <h4><i style="background:${b.color}"></i>${b.label}</h4>
+        <div class="in">${q.items.filter(i=>q.sel[i.id]===bi).map(i=>`<span class="tok${done?(i.bin===bi?' good':' bad'):''}" data-act="unplace" data-id="${i.id}" role="button" tabindex="0">${i.label}</span>`).join('')}</div></button>`).join('')}</div>`;
+  }
+  if(q.type==='tf'){
+    h+=`<div class="qtext">Mỗi phát biểu sau đúng hay sai?<small>Giống phần 2 của đề kiểm tra: cần đúng cả 4 ý.</small></div>
+      <div class="rows">${q.items.map((it,i)=>`<div class="rw tfrow${done?(q.sel[it.id]===(it.ans?'T':'F')?' good':' bad'):''}"><div class="lb"><b>${'abcd'[i]}.</b> ${it.text}</div>
+      ${segHTML(it.id,[['T','Đúng'],['F','Sai']],q.sel[it.id],it.ans?'T':'F',done)}</div>`).join('')}</div>`;
+  }
+  if(q.type==='short'){
+    const ok=done&&isRight(q);
+    h+=`<div class="qtext">${q.stem}</div><div class="ansbox"><input id="ans" inputmode="decimal" autocomplete="off" placeholder="Nhập đáp số" value="${esc(q.input||'')}" ${done?'disabled':''} class="${done?(ok?'good':'bad'):''}" aria-label="Đáp số"></div>
+      <div class="ansnote">${q.note} Dùng dấu phẩy hoặc dấu chấm cho phần thập phân.</div>`;
+  }
+  if(q.type==='mcq'){
+    h+=`<div class="qtext">${q.stem}</div><div class="opts">${q.opts.map((o,i)=>{let c=q.sel===o?' sel':'';if(done)c=o===q.answer?' good':q.sel===o?' bad':'';
+      return `<button class="opt${c}" data-act="pick" data-v="${esc(o)}" ${done?'disabled':''}><span class="k">${'ABCD'[i]}</span><span>${o}</span></button>`}).join('')}</div>`;
+  }
+  $('qCard').innerHTML=h;
+  if(q.type==='short'&&!done){const inp=$('ans');inp.addEventListener('input',()=>{q.input=inp.value;paintCheck()});inp.addEventListener('keydown',e=>{if(e.key==='Enter')check()})}
+  if(q.type==='shift'&&done){const arm=document.querySelector('.beam .arm');const t=arm.getAttribute('data-tilt');requestAnimationFrame(()=>requestAnimationFrame(()=>arm.style.transform=`rotate(${t}deg)`))}
+  paintCheck();
+}
+function paintCheck(){const q=S.q,ready=isReady(q),done=S.checked;$('btnCheck').disabled=!ready||done;$('btnCheck').textContent=done?'Đã kiểm tra':ready?'Kiểm tra':readyHint(q)}
+const parseNum=s=>{const t=String(s||'').trim().replace(/\s/g,'').replace(',','.');return /^-?\d*\.?\d+$/.test(t)?parseFloat(t):NaN};
+function isReady(q){
+  if(q.type==='kc')return q.sps.every(s=>q.sel[s.id]);
+  if(q.type==='bronsted')return q.b.every((_,i)=>q.sel['b'+i]);
+  if(q.type==='classify')return q.items.every(i=>q.sel[i.id]!==undefined);
+  if(q.type==='tf')return q.items.every(i=>q.sel[i.id]);
+  if(q.type==='short')return !isNaN(parseNum(q.input));
+  return q.sel!==null;
+}
+function readyHint(q){
+  if(q.type==='classify')return `Còn ${q.items.filter(i=>q.sel[i.id]===undefined).length} chất chưa xếp`;
+  if(q.type==='tf')return `Còn ${q.items.filter(i=>!q.sel[i.id]).length} ý chưa chọn`;
+  if(q.type==='kc'||q.type==='bronsted')return 'Chọn cho từng chất';
+  if(q.type==='short')return 'Nhập đáp số';
+  return 'Chọn một đáp án';
+}
+function isRight(q){
+  if(q.type==='shift')return q.sel===q.d.a;
+  if(q.type==='kc')return q.sps.every(s=>q.sel[s.id]===s.ans);
+  if(q.type==='bronsted')return q.b.every((s,i)=>q.sel['b'+i]===s[1]);
+  if(q.type==='classify')return q.items.every(i=>q.sel[i.id]===i.bin);
+  if(q.type==='tf')return q.items.every(i=>q.sel[i.id]===(i.ans?'T':'F'));
+  if(q.type==='short')return Math.abs(parseNum(q.input)-q.answer)<=q.tol;
+  return q.sel===q.answer;
+}
+function explain(q){
+  if(q.type==='shift')return `<div class="calc">${DIR_TXT[q.d.a]}</div><p>${q.d.why}</p>`;
+  if(q.type==='kc')return `<div class="calc">${kcHTML(q.r)}</div><p>Sản phẩm ở tử số, chất phản ứng ở mẫu số, số mũ bằng hệ số. ${q.r.L.concat(q.r.R).some(x=>x[1]==='s')?'Chất rắn không có mặt trong biểu thức K<sub>C</sub>.':''}</p>`;
+  if(q.type==='bronsted'){const b=q.b;return `<div class="calc"><div>Chiều thuận: ${b.slice(0,2).map(s=>`${s[0]} là ${s[1]==='A'?'acid (cho H⁺)':'base (nhận H⁺)'}`).join('; ')}</div><div>Chiều nghịch: ${b.slice(2).map(s=>`${s[0]} là ${s[1]==='A'?'acid':'base'}`).join('; ')}</div></div><p>Acid cho H⁺, base nhận H⁺. Mỗi cặp acid – base liên hợp chỉ hơn kém nhau một H⁺.</p>`}
+  if(q.type==='classify')return `<div class="calc">${q.set.bins.map((b,bi)=>`<div>${b.label}: ${q.items.filter(i=>i.bin===bi).map(i=>i.label).join(', ')}</div>`).join('')}</div><p>${q.set.rule}</p>`;
+  if(q.type==='tf')return `<div class="calc">${q.items.map((it,i)=>`<div>${'abcd'[i]}. <b style="color:${it.ans?'var(--ok)':'var(--bad)'}">${it.ans?'Đúng':'Sai'}</b>${it.why?` – ${it.why}`:''}</div>`).join('')}</div>`;
+  if(q.type==='short')return `<div class="calc">Đáp số: ${vn(q.answer,3)}</div><p>${q.explain}</p>`;
+  return `<div class="calc">${q.answer}</div>${q.explain?`<p>${q.explain}</p>`:''}`;
+}
+function hint(q){
+  if(q.type==='shift')return 'Xác định tác động thuộc loại nào: nhiệt độ (xem dấu Δ<sub>r</sub>H), áp suất (đếm số mol khí hai vế), nồng độ (chất đó ở vế nào) hay chất xúc tác.';
+  if(q.type==='kc')return 'Sản phẩm ở tử số, chất phản ứng ở mẫu số; chất rắn không có mặt trong K<sub>C</sub>.';
+  if(q.type==='bronsted')return 'Chất nào mất H⁺ là acid, chất nào nhận thêm H⁺ là base. So sánh công thức hai chất trước và sau phản ứng.';
+  if(q.type==='classify')return `Có ${q.items.filter(i=>q.sel[i.id]!==i.bin).length} chất xếp chưa đúng nhóm. ${q.set.rule}`;
+  if(q.type==='tf'){const n=q.items.filter(i=>q.sel[i.id]!==(i.ans?'T':'F')).length;return `Có ${n} ý chọn chưa đúng. Đọc kĩ từng từ khoá trong phát biểu nhé.`}
+  if(q.type==='short')return 'Chưa đúng. Kiểm tra lại công thức và phép tính.';
+  return 'Đọc kĩ lại câu hỏi và thử lại nhé.';
+}
+function qText(q){
+  if(q.type==='shift')return `${strip(eqHTML(q.r))} – ${q.d.t}`;
+  if(q.type==='kc')return `Biểu thức K_C của ${strip(eqHTML(q.r))}`;
+  if(q.type==='bronsted')return `${q.b[0][0]} + ${q.b[1][0]} ⇌ ${q.b[2][0]} + ${q.b[3][0]}`;
+  if(q.type==='classify')return q.set.title;
+  if(q.type==='tf')return q.items.map((it,i)=>`${'abcd'[i]}. ${strip(it.text)}`).join(' ');
+  return strip(q.stem);
+}
+function aText(q){
+  if(q.type==='shift')return DIR_TXT[q.d.a];
+  if(q.type==='kc')return kcHTML(q.r);
+  if(q.type==='bronsted')return q.b.map(s=>`${s[0]}: ${s[1]==='A'?'acid':'base'}`).join('; ');
+  if(q.type==='classify')return q.set.bins.map((b,bi)=>`${b.label}: ${q.items.filter(i=>i.bin===bi).map(i=>i.label).join(', ')}`).join('; ');
+  if(q.type==='tf')return q.items.map((it,i)=>`${'abcd'[i]} ${it.ans?'Đ':'S'}`).join(', ');
+  if(q.type==='short')return vn(q.answer,3);
+  return q.answer;
+}
+
+/* ================== TRẠNG THÁI & LUỒNG ================== */
+const S={tp:load('h11-tp',[1,2,3,4]),mode:'practice',ptype:'all',name:'',cls:'',q:null,checked:false,queue:[],idx:0,results:[],
+  streak:0,best:0,start:0,timerId:null,pdone:0,payload:null,cards:null};
+
+function buildQueue(n,tp){
+  const ts=typesFor(tp),weight={shift:3,kc:1,bronsted:1,classify:2,tf:2,short:2,mcq:3};
+  const bag=[];ts.forEach(t=>{for(let i=0;i<weight[t];i++)bag.push(t)});
+  let order=[];while(order.length<n)order.push(...shuffle(bag));order=shuffle(order.slice(0,n));
+  for(let i=1;i<order.length;i++)if(order[i]===order[i-1]){const j=order.findIndex((t,k)=>k>i&&t!==order[i]&&t!==order[i-1]);if(j>0)[order[i],order[j]]=[order[j],order[i]]}
+  const used=new Set(),list=[];
+  for(const t of order){let q,g=0;do{q=gen(t,tp,used);g++}while(used.has(q.key)&&g<40);used.add(q.key);list.push(q)}
+  return list;
+}
+function newPracticeQ(){
+  const ts=typesFor(S.tp);const t=S.ptype==='all'||!ts.includes(S.ptype)?rnd(ts):S.ptype;
+  let q,g=0;do{q=gen(t,S.tp);g++}while(S.q&&q.key===S.q.key&&g<20);
+  S.q=q;S.checked=false;hideSheet();render();window.scrollTo({top:0});
+}
+const ICON_OK='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+const ICON_NO='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+function showSheet(kind,html){$('sheet').className='sheet '+kind;$('sheetIn').innerHTML=html;$('sheet').hidden=false;
+  const f=$('sheetIn').querySelector('.cta')||$('sheetIn').querySelector('button');if(f)setTimeout(()=>f.focus({preventScroll:true}),50)}
+function hideSheet(){$('sheet').hidden=true}
+
+function check(){
+  const q=S.q;if(S.checked||!isReady(q))return;const ok=isRight(q);
+  if(S.mode==='challenge'){
+    S.checked=true;S.results.push({q,status:ok?'right':'wrong'});S.streak=ok?S.streak+1:0;S.best=Math.max(S.best,S.streak);paintTop();render();ok?sfx.right():sfx.wrong();
+    const last=S.idx>=S.queue.length-1;
+    showSheet(ok?'ok':'no',`<h3>${ok?ICON_OK+'Chính xác!':ICON_NO+'Chưa đúng'}</h3>${ok&&S.streak>=3?`<p>Chuỗi ${S.streak} câu đúng liên tiếp!</p>`:''}${explain(q)}
+      <div class="btns"><button class="btn cta" data-act="next">${last?'Xem kết quả':'Câu tiếp theo'}</button></div>`);
+  }else{
+    if(ok){sfx.right();S.checked=true;S.pdone++;paintTop();render();showSheet('ok',`<h3>${ICON_OK}Chính xác!</h3>${explain(q)}<div class="btns"><button class="btn cta" data-act="pnext">Câu khác</button></div>`)}
+    else{sfx.wrong();showSheet('no',`<h3>${ICON_NO}Chưa đúng</h3><p>${hint(q)}</p><div class="btns"><button class="btn" data-act="reveal">Xem đáp án</button><button class="btn cta" data-act="retry">Thử lại</button></div>`);
+      $('qCard').classList.remove('shake');void $('qCard').offsetWidth;$('qCard').classList.add('shake')}
+  }
+}
+function resetSel(q){if(['shift','mcq'].includes(q.type))q.sel=null;else if(q.type==='short')q.input='';else q.sel={};q.active=null}
+
+function setPlayChrome(mode){
+  const ch=mode==='challenge',cards=mode==='cards';
+  $('tabs').hidden=ch;$('btnSkip').hidden=!ch;$('btnNew').hidden=ch||cards;$('btnFinish').hidden=!ch;$('streak').hidden=!ch;$('timer').hidden=!ch;
+  $('actions').hidden=cards;
+}
+function startChallenge(){
+  Object.assign(S,{mode:'challenge',queue:buildQueue(Math.max(4,SO_CAU|0),S.tp),idx:0,results:[],streak:0,best:0,start:Date.now(),payload:null});
+  show('scrPlay');setPlayChrome('challenge');clearInterval(S.timerId);S.timerId=setInterval(paintTimer,1000);paintTimer();
+  S.q=S.queue[0];S.checked=false;hideSheet();render();paintTop();
+}
+function startPractice(){
+  S.mode='practice';clearInterval(S.timerId);S.q=null;show('scrPlay');setPlayChrome('practice');
+  if(S.ptype!=='all'&&!typesFor(S.tp).includes(S.ptype))S.ptype='all';
+  paintTabs();paintTop();newPracticeQ();
+}
+function paintTabs(){
+  if(S.mode==='cards'){$('tabs').innerHTML=[['all','Tất cả'],...S.tp.map(t=>[String(t),TOPICS[t].name])].map(([k,t])=>`<button class="tab${S.cards.filter===k?' on':''}" data-c="${k}">${t}</button>`).join('');return}
+  $('tabs').innerHTML=[['all','Tất cả'],...typesFor(S.tp).map(t=>[t,TYPES[t]])].map(([k,t])=>`<button class="tab${S.ptype===k?' on':''}" role="tab" aria-selected="${S.ptype===k}" data-t="${k}">${t}</button>`).join('');
+}
+function paintTop(){
+  if(S.mode==='challenge'){const n=S.queue.length;
+    $('progText').textContent=`Câu ${Math.min(S.idx+1,n)}/${n}`+(S.name?` – ${S.name}`:'');
+    $('progBar').style.width=(S.results.length/n*100)+'%';$('streak').textContent=`Chuỗi ${S.streak}`;$('streak').classList.toggle('hot',S.streak>=3);
+  }else if(S.mode==='practice'){$('progText').textContent=`Luyện tập – đã làm đúng ${S.pdone} câu`;$('progBar').style.width=Math.min(100,S.pdone*10)+'%'}
+  else{const c=S.cards;$('progText').textContent=`Thẻ ghi nhớ – đã nhớ ${c.known}/${c.total} thẻ`;$('progBar').style.width=(c.total?c.known/c.total*100:0)+'%'}
+}
+const mmss=ms=>{const s=Math.floor(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
+function paintTimer(){$('timer').textContent=mmss(Date.now()-S.start)}
+function nextQuestion(){S.idx++;hideSheet();if(S.idx>=S.queue.length)return finish();S.q=S.queue[S.idx];S.checked=false;render();paintTop();window.scrollTo({top:0,behavior:reduced?'auto':'smooth'})}
+function skip(){if(S.mode!=='challenge'||S.checked)return;S.results.push({q:S.q,status:'skip'});S.streak=0;nextQuestion()}
+
+/* ---------- Thẻ ghi nhớ ---------- */
+function startCards(filter='all'){
+  S.mode='cards';clearInterval(S.timerId);show('scrPlay');
+  const pool=CARDS.filter(c=>S.tp.includes(c[0])&&(filter==='all'||String(c[0])===filter));
+  S.cards={filter,deck:shuffle(pool),known:0,total:pool.length,hard:new Set(),flipped:false};
+  setPlayChrome('cards');hideSheet();paintTabs();paintTop();renderCard();
+}
+function renderCard(){
+  const c=S.cards;
+  if(!c.deck.length){
+    $('qCard').innerHTML=`<div class="fc-done"><h2>Tuyệt vời!</h2>
+      <p>Em đã nhớ hết ${c.total} thẻ${c.hard.size?`, trong đó ${c.hard.size} thẻ phải ôn lại nhiều lần`:''}. Thử sức với chế độ Thử thách nhé!</p>
+      <div class="fc-btns"><button class="btn cta" data-act="tochal">Làm thử thách</button>${c.hard.size?'<button class="btn" data-act="hard">Ôn lại thẻ khó</button>':'<button class="btn" data-act="restart">Học lại từ đầu</button>'}</div></div>`;
+    return;
+  }
+  const [t,f,b]=c.deck[0];
+  $('qCard').innerHTML=`<div class="fc-wrap"><div class="fc${c.flipped?' flip':''}" id="fc" role="button" tabindex="0" aria-label="Lật thẻ">
+      <div class="face front"><span class="tag">${TOPICS[t].name}</span><b>${f}</b><span class="hint">Nhớ lại nội dung rồi chạm để lật thẻ</span></div>
+      <div class="face back"><span class="tag">${TOPICS[t].name}</span><div>${b}</div></div></div></div>
+    <div class="fc-btns">${c.flipped?'<button class="btn no" data-act="nope">Chưa nhớ</button><button class="btn yes" data-act="yep">Đã nhớ</button>':'<button class="btn cta" style="grid-column:1/-1" data-act="flip">Lật thẻ</button>'}</div>
+    <p class="ansnote" style="text-align:center">Còn ${c.deck.length} thẻ chưa thuộc. Thẻ "chưa nhớ" sẽ quay lại sau vài thẻ.</p>`;
+}
+function cardAct(a){
+  const c=S.cards;
+  if(a==='flip'){c.flipped=!c.flipped;sfx.flip();renderCard();return}
+  if(a==='restart')return startCards(c.filter);
+  if(a==='hard'){const hard=[...c.hard];S.cards={filter:c.filter,deck:shuffle(hard),known:0,total:hard.length,hard:new Set(),flipped:false};paintTop();renderCard();return}
+  if(a==='tochal'){if(readStudent())startChallenge();else show('scrStart');return}
+  if(a==='yep'){c.deck.shift();c.known++;c.flipped=false;sfx.tap(4)}
+  if(a==='nope'){const card=c.deck.shift();c.hard.add(card);c.deck.splice(Math.min(3,c.deck.length),0,card);c.flipped=false;sfx.tap(0)}
+  paintTop();renderCard();
+}
+
+/* ---------- Kết thúc thử thách ---------- */
+function finish(early){
+  if(early){const left=S.queue.length-S.results.length;if(!confirm(left?`Còn ${left} câu chưa làm. Em vẫn muốn nộp bài?`:'Nộp bài ngay?'))return;
+    for(let i=S.results.length;i<S.queue.length;i++)S.results.push({q:S.queue[i],status:'skip'})}
+  clearInterval(S.timerId);hideSheet();
+  const total=S.queue.length,right=S.results.filter(r=>r.status==='right').length,wrong=S.results.filter(r=>r.status==='wrong').length,
+        blank=total-right-wrong,score=Math.round(DIEM_TOI_DA*right/total*100)/100,time=Date.now()-S.start,ratio=right/total;
+  $('rsScore').innerHTML=`${vn(score,2)}<small>/${DIEM_TOI_DA}</small>`;
+  $('rsTitle').textContent=ratio===1?'Tuyệt đối! Em đã sẵn sàng cho bài kiểm tra.':ratio>=.8?'Rất tốt! Ôn thêm vài chỗ nhỏ nữa thôi.':ratio>=.5?'Khá ổn. Dùng Thẻ ghi nhớ để ôn phần còn sai nhé.':'Mở Thẻ ghi nhớ học lại kiến thức trọng tâm rồi thử lại nhé.';
+  $('rsWho').textContent=`${S.name} – Lớp ${S.cls}`;
+  $('rsRight').textContent=right;$('rsWrong').textContent=wrong;$('rsSkip').textContent=blank;$('rsTime').textContent=mmss(time);
+  const by={};S.results.forEach(r=>{by[r.q.type]=by[r.q.type]||[0,0];by[r.q.type][1]++;if(r.status==='right')by[r.q.type][0]++});
+  $('rsByType').innerHTML='<h3>Kết quả theo dạng câu hỏi</h3>'+Object.entries(by).map(([t,[a,b]])=>`<div class="bt"><span>${TYPES[t]}</span><span class="bar"><i style="width:${a/b*100}%"></i></span><span class="num">${a}/${b}</span></div>`).join('');
+  $('rsReview').innerHTML='<h3>Xem lại từng câu</h3>'+S.results.map((r,i)=>`<div class="rv ${r.status}">
+     <div class="t">Câu ${i+1} – ${TYPES[r.q.type]} – ${r.status==='right'?'Đúng':r.status==='wrong'?'Sai':'Chưa làm'}</div>
+     <div class="q">${esc(qText(r.q))}</div><div class="a">Đáp án: <b>${aText(r.q)}</b></div></div>`).join('');
+  show('scrResult');window.scrollTo(0,0);if(ratio>=.8)confetti();
+  S.payload={submissionId:(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)),
+    lessonId:LESSON_ID,lessonTitle:'Game Ôn tập GHK1 Hoá 11',studentName:S.name,className:S.cls,clientScore:score,clientMaxScore:DIEM_TOI_DA,
+    correctCount:right,wrongCount:wrong,blankCount:blank,totalCount:total,clientTime:new Date().toISOString()};
+  sendResult();
+}
+
+/* ---------- Gửi kết quả lên Google Sheets ---------- */
+const PENDING='h11-pending';
+function sendBox(kind,html){const b=$('rsSend');b.className='send '+kind;b.innerHTML=html}
+async function post(p){const r=await fetch(SHEETS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(p),redirect:'follow'});
+  const a=await r.json();if(a.ok!==true)throw new Error(a.message||'Máy chủ không xác nhận.')}
+async function sendResult(){
+  if(!GUI_DIEM||!/^https:\/\/script\.google\.com\/.+\/exec$/.test(SHEETS_URL)){sendBox('','Kết quả chỉ hiển thị trên máy này (chưa bật gửi điểm).');return}
+  const p=S.payload;if(!p)return;const list=load(PENDING,[]);if(!list.some(x=>x.submissionId===p.submissionId)){list.push(p);store(PENDING,list)}
+  sendBox('','Đang gửi kết quả cho giáo viên…');
+  try{await post(p);store(PENDING,load(PENDING,[]).filter(x=>x.submissionId!==p.submissionId));sendBox('ok','Đã lưu kết quả vào bảng điểm của giáo viên.')}
+  catch(err){sendBox('no',`Chưa gửi được kết quả (${esc(err.message||'lỗi mạng')}). Kết quả đã được giữ lại trên máy.<button class="btn" id="btnResend">Gửi lại</button>`);$('btnResend').onclick=sendResult}
+}
+async function flushPending(){if(!GUI_DIEM)return;for(const p of load(PENDING,[])){try{await post(p);store(PENDING,load(PENDING,[]).filter(x=>x.submissionId!==p.submissionId))}catch(_){break}}}
+function confetti(){if(reduced)return;const box=document.createElement('div');box.className='confetti';
+  for(let i=0;i<70;i++){const c=document.createElement('i');c.style.left=Math.random()*100+'vw';c.style.background=COLORS[i%5];c.style.animationDuration=(2+Math.random()*2)+'s';c.style.animationDelay=Math.random()*.6+'s';box.appendChild(c)}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),5000)}
+
+/* ---------- Điều hướng ---------- */
+function show(id){['scrStart','scrPlay','scrResult'].forEach(s=>$(s).hidden=s!==id)}
+function goHome(){if(S.mode==='challenge'&&!$('scrPlay').hidden&&S.results.length<S.queue.length&&!confirm('Thoát bây giờ thì bài thử thách sẽ không được lưu. Em chắc chắn muốn thoát?'))return;
+  clearInterval(S.timerId);hideSheet();show('scrStart')}
+function readStudent(){
+  const name=$('inName').value.trim().replace(/\s+/g,' '),cls=$('inClass').value.trim().toUpperCase();
+  if(name.length<2){$('startErr').textContent='Em nhập họ và tên đầy đủ trước khi làm thử thách nhé.';$('inName').focus();return false}
+  if(!cls){$('startErr').textContent='Em nhập lớp trước khi làm thử thách nhé.';$('inClass').focus();return false}
+  $('startErr').textContent='';S.name=name;S.cls=cls;store('h11-student',{name,cls});return true}
+function paintTopics(){
+  $('tps').innerHTML=Object.entries(TOPICS).map(([k,t])=>{const on=S.tp.includes(+k);return `<button class="tp${on?' on':''}" data-tp="${k}" aria-pressed="${on}"><span class="ck">${on?'✓':''}</span><span><b>${t.short}</b>${t.name}</span></button>`}).join('');
+  $('challengeDesc').textContent=`${Math.max(4,SO_CAU|0)} câu trộn đủ dạng như đề kiểm tra, có tính điểm`+(GUI_DIEM?' và gửi kết quả cho giáo viên':'');
+}
+function heroSVG(){return `<svg viewBox="0 0 400 150" width="100%">
+  <polygon points="200,92 182,140 218,140" fill="#45397C"/>
+  <g class="beam-g"><rect x="40" y="86" width="320" height="10" rx="5" fill="#B3ABD9"/>
+    <circle cx="80" cy="64" r="20" fill="#9CC2FF"/><circle cx="112" cy="66" r="16" fill="#6EE7D2"/>
+    <circle cx="288" cy="64" r="20" fill="#FF9AB0"/><circle cx="320" cy="66" r="16" fill="#FFC94A"/>
+    <text x="200" y="70" text-anchor="middle" font-size="34" font-weight="800" fill="#F2EFFF" font-family="Be Vietnam Pro, sans-serif">⇌</text></g></svg>`}
+
+/* ---------- Sự kiện ---------- */
+$('qCard').addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-act]');
+  if(S.mode==='cards'){if(ev.target.closest('#fc')){cardAct('flip');return}if(b)cardAct(b.dataset.act);return}
+  if(!b||S.checked)return;const q=S.q,a=b.dataset.act;
+  if(a==='pick'){q.sel=b.dataset.v;sfx.tap(2)}
+  if(a==='seg'){q.sel[b.dataset.n]=b.dataset.v;sfx.tap(1)}
+  if(a==='item'){q.active=q.active===b.dataset.id?null:b.dataset.id;sfx.tap(1)}
+  if(a==='unplace'){ev.stopPropagation();delete q.sel[b.dataset.id];q.active=b.dataset.id;sfx.tap(0)}
+  if(a==='bin'){if(!q.active){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');return}q.sel[q.active]=+b.dataset.b;q.active=null;sfx.tap(3)}
+  hideSheet();render();
+});
+$('qCard').addEventListener('keydown',ev=>{
+  if((ev.key==='Enter'||ev.key===' ')&&ev.target.matches('#fc')){ev.preventDefault();cardAct('flip')}
+  if((ev.key==='Enter'||ev.key===' ')&&ev.target.matches('[data-act="unplace"]')){ev.preventDefault();ev.target.click()}});
+$('tabs').addEventListener('click',ev=>{
+  const c=ev.target.closest('[data-c]');if(c){startCards(c.dataset.c);return}
+  const t=ev.target.closest('[data-t]');if(!t)return;S.ptype=t.dataset.t;paintTabs();newPracticeQ()});
+$('tps').addEventListener('click',ev=>{const b=ev.target.closest('[data-tp]');if(!b)return;const k=+b.dataset.tp;
+  if(S.tp.includes(k)){if(S.tp.length===1){$('startErr').textContent='Cần chọn ít nhất một nội dung.';return}S.tp=S.tp.filter(x=>x!==k)}else S.tp=[...S.tp,k].sort();
+  $('startErr').textContent='';store('h11-tp',S.tp);paintTopics()});
+$('sheetIn').addEventListener('click',ev=>{const a=ev.target.closest('[data-act]')?.dataset.act;if(!a)return;
+  if(a==='next')nextQuestion();
+  if(a==='pnext')newPracticeQ();
+  if(a==='retry'){resetSel(S.q);hideSheet();render()}
+  if(a==='reveal'){S.checked=true;render();showSheet('no',`<h3>Đáp án</h3>${explain(S.q)}<div class="btns"><button class="btn cta" data-act="pnext">Câu khác</button></div>`)}});
+$('btnCheck').onclick=check;
+$('btnSkip').onclick=skip;
+$('btnNew').onclick=newPracticeQ;
+$('btnFinish').onclick=()=>finish(true);
+$('btnHome').onclick=goHome;
+$('btnMute').onclick=()=>{muted=!muted;store('h11-muted',muted);paintMute()};
+$('btnChallenge').onclick=()=>{if(readStudent())startChallenge()};
+$('btnPractice').onclick=()=>{$('startErr').textContent='';startPractice()};
+$('btnCards').onclick=()=>{$('startErr').textContent='';startCards()};
+$('btnAgain').onclick=startChallenge;
+$('btnToPractice').onclick=startPractice;
+$('btnToHome').onclick=()=>show('scrStart');
+['inName','inClass'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='Enter')$('btnChallenge').click()}));
+
+S.tp=S.tp.filter(x=>TOPICS[x]);if(!S.tp.length)S.tp=[1,2,3,4];
+const saved=load('h11-student',null);if(saved){$('inName').value=saved.name||'';$('inClass').value=saved.cls||''}
+$('hero').innerHTML=heroSVG();paintTopics();paintMute();flushPending();
+</script>
+</body>
+</html>
